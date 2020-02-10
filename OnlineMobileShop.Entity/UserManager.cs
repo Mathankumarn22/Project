@@ -13,7 +13,7 @@ namespace OnlineMobileShop.Entity
         public string role { get; set; }
         public UserManager(string name, string number, string mailID, string password)
         {
-          //  Validation validation = new Validation();
+          
             this.name = name;
             this.number = number;
             this.mailID = mailID;

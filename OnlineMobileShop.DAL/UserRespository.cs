@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-
+using System.Web.DynamicData;
+using System.Web.UI.WebControls;
 
 namespace OnlineMobileShop.DAL
 {
     public class UserRespository
     {
-     //   internal Dictionary<int, Admin> user = new Dictionary<int, Admin>();
-   //     DataSet products = new DataSet();
-        SqlConnection sqlConnection = UserRespository.GetDBConnection();
-        //ArrayList userData = new ArrayList();
+        static SqlConnection sqlConnection = UserRespository.GetDBConnection();
+        private static readonly object password;
+        public static object mailID { get; private set; }
         public bool SignUp(UserManager userManager)
         {
-
             string insertQuery = "SP_SignUp";
             using (SqlCommand sqlCommand = new SqlCommand(insertQuery, sqlConnection))
             {
@@ -26,15 +25,12 @@ namespace OnlineMobileShop.DAL
                 param.SqlDbType = SqlDbType.VarChar;
                 sqlCommand.Parameters.Add(param);
 
-
                 param = new SqlParameter();
                 param.ParameterName = "@number";
                 param.Value = userManager.number;
                 param.SqlDbType = SqlDbType.VarChar;
                 sqlCommand.Parameters.Add(param);
-
-
-
+                
                 param = new SqlParameter();
                 param.ParameterName = "@mailID";
                 param.Value = userManager.mailID;
@@ -78,28 +74,105 @@ namespace OnlineMobileShop.DAL
 
                 sqlConnection.Open();
                 string flag = sqlCommand.ExecuteScalar().ToString();
-                
-                if (flag=="true")
+
+                if (flag == "true")
                 {
                     sqlConnection.Close();
                     return true;
                 }
                 sqlConnection.Close();
                 return false;
-                
+
             }
         }
-
-        
-       public static SqlConnection GetDBConnection()
+        public static SqlConnection GetDBConnection()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineMobileShop"].ConnectionString;
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             return sqlConnection;
         }
+        public static void RefreshData(GridView Gv_OnlineMobileShop)
+        {
+            SqlCommand cmd = new SqlCommand("select * From UserDetails", sqlConnection);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            Gv_OnlineMobileShop.DataSource = dt;
+            Gv_OnlineMobileShop.DataBind();
+
+        }
+        public static void Gv_OnlineMobileShop_RowDeleting(GridViewDeleteEventArgs e, int userId)
+        {
+            GridView gridView = new GridView();
+            sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand("delete from UserDetails where userId =@userId", sqlConnection);
+            cmd.Parameters.AddWithValue("userId", userId);
+            int i = cmd.ExecuteNonQuery();
+            sqlConnection.Close();
+        }
+        public static void Gv_OnlineMobileShop_RowUpdating(GridView Gv_OnlineMobileShop, GridViewUpdateEventArgs e)
+        {
+
+            TextBox txtUserId = Gv_OnlineMobileShop.Rows[e.RowIndex].FindControl("txtUserId") as TextBox;
+            TextBox txtname = Gv_OnlineMobileShop.Rows[e.RowIndex].FindControl("txtName") as TextBox;
+            TextBox txtnumber = Gv_OnlineMobileShop.Rows[e.RowIndex].FindControl("txtNumber") as TextBox;
+            TextBox txtmailID = Gv_OnlineMobileShop.Rows[e.RowIndex].FindControl("txtMailId") as TextBox;
+            TextBox txtpassword = Gv_OnlineMobileShop.Rows[e.RowIndex].FindControl("txtPassword") as TextBox;
+            sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand("SP_Updatedata", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("userId", txtUserId.Text);
+            cmd.Parameters.AddWithValue("name", txtname.Text);
+            cmd.Parameters.AddWithValue("number", txtnumber.Text);
+            cmd.Parameters.AddWithValue("mailID", txtmailID.Text);
+            cmd.Parameters.AddWithValue("password", txtpassword.Text);
+            int i = cmd.ExecuteNonQuery();
+            sqlConnection.Close();
+        }
+        public static void InsertData(GridView Gv_OnlineMobileShop)
+        {
+           string name = (Gv_OnlineMobileShop.FooterRow.FindControl("txtNameFooter") as TextBox).Text;
+            string number = (Gv_OnlineMobileShop.FooterRow.FindControl("txtNumberFooter") as TextBox).Text;
+            string mailId = (Gv_OnlineMobileShop.FooterRow.FindControl("txtMailIdFooter") as TextBox).Text;
+            string password = (Gv_OnlineMobileShop.FooterRow.FindControl("txtPasswordFooter") as TextBox).Text;
+            string insertQuery = "SP_SignUp";
+            using (SqlCommand sqlCommand = new SqlCommand(insertQuery, sqlConnection))
+                
+            {
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter param = new SqlParameter();
+                param.ParameterName = "@name";
+                param.Value = name;
+                param.SqlDbType = SqlDbType.VarChar;
+                sqlCommand.Parameters.Add(param);
+
+                param = new SqlParameter();
+                param.ParameterName = "@number";
+                param.Value = number;
+                param.SqlDbType = SqlDbType.VarChar;
+                sqlCommand.Parameters.Add(param);
+
+                param = new SqlParameter();
+                param.ParameterName = "@mailID";
+                param.Value = mailId;
+                param.SqlDbType = SqlDbType.VarChar;
+                sqlCommand.Parameters.Add(param);
+
+                param = new SqlParameter();
+                param.ParameterName = "@password";
+                param.Value = password;
+                param.SqlDbType = SqlDbType.VarChar;
+                sqlCommand.Parameters.Add(param);
+
+                sqlConnection.Open();
+                int rows = sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+
+            }
+        }
     }
 }
-
 
 
 

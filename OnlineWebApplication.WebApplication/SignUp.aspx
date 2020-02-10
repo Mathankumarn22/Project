@@ -11,9 +11,6 @@
                 
                 <tr>
                     <td>Name</td>
-
-
-
                     <td>
                         <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
                     </td>

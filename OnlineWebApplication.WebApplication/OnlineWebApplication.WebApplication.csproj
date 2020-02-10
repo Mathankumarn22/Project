@@ -148,6 +148,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OnlineMobileShop.BL\OnlineMobileShop.BL.csproj">
+      <Project>{612eb21f-767a-4a68-a440-bfea86624f55}</Project>
+      <Name>OnlineMobileShop.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OnlineMobileShop.DAL\OnlineMobileShop.DAL.csproj">
       <Project>{c64cbaed-a3b1-4459-b42d-e58370021d37}</Project>
       <Name>OnlineMobileShop.DAL</Name>
