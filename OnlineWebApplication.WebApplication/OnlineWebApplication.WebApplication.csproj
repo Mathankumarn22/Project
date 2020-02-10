@@ -94,6 +94,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GridView.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -110,10 +111,19 @@
     <Content Include="LogIn.aspx" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SignUp.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GridView.aspx.cs">
+      <DependentUpon>GridView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridView.aspx.designer.cs">
+      <DependentUpon>GridView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="LogIn.aspx.cs">
       <DependentUpon>LogIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -141,6 +151,10 @@
     <ProjectReference Include="..\OnlineMobileShop.DAL\OnlineMobileShop.DAL.csproj">
       <Project>{c64cbaed-a3b1-4459-b42d-e58370021d37}</Project>
       <Name>OnlineMobileShop.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineMobileShop.Entity\OnlineMobileShop.Entity.csproj">
+      <Project>{f89608dc-2456-45e3-8fa9-39d9bb174870}</Project>
+      <Name>OnlineMobileShop.Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

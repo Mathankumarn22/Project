@@ -1,5 +1,6 @@
 ﻿using OnlineMobileShop.Entity;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 
@@ -92,9 +93,7 @@ namespace OnlineMobileShop.DAL
         
        public static SqlConnection GetDBConnection()
         {
-            string dataSource = @"DESKTOP-RLL3JF9\SQLEXPRESS";
-            string dataBase = "OnlineMobileShop";
-            string connectionString = @"Data Source=" + dataSource + ";Initial Catalog=" + dataBase + ";Integrated Security=true;";
+            string connectionString = ConfigurationManager.ConnectionStrings["OnlineMobileShop"].ConnectionString;
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             return sqlConnection;
         }

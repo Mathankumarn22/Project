@@ -17,15 +17,15 @@ namespace OnlineWebApplication.WebApplication
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             UserRespository userRespository = new UserRespository();
-            txtUserId = Convert.ToInt32(txtUserId.Text);
+            int userId = Convert.ToInt32(txtUserId.Text);
             string password = Convert.ToString(txtPassword.Text);
             if (userRespository.LogIn(userId, password))
             {
-                Response.Write("<script>alert('login successful');</script>");
+                Response.Write("<script>alert('Login Successful');</script>");
             }
             else
             {
-                Response.Write("<script>alert('login not successful');</script>");
+                Response.Write("<script>alert('Login Failed');</script>");
             }
 
         }
