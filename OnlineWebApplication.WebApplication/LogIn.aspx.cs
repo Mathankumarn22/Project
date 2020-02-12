@@ -16,16 +16,23 @@ namespace OnlineWebApplication.WebApplication
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            UserRespository userRespository = new UserRespository();
-            int userId = Convert.ToInt32(txtUserId.Text);
-            string password = Convert.ToString(txtPassword.Text);
-            if (userRespository.LogIn(userId, password))
+            try
             {
-                Response.Write("<script>alert('Login Successful');</script>");
+                UserRespository userRespository = new UserRespository();
+                int userId = Convert.ToInt32(txtUserId.Text);
+                string password = Convert.ToString(txtPassword.Text);
+                if (userRespository.LogIn(userId, password))
+                {
+                    Response.Write("<script>alert('Login Successful');</script>");
+                }
+                else
+                {
+                    throw new Exception("Login failed");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                Response.Write("<script>alert('Login Failed');</script>");
+                Response.Write("<script>alert('"+ex.Message+"');</script>");
             }
 
         }

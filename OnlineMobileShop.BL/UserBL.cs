@@ -1,6 +1,8 @@
 ﻿using OnlineMobileShop.DAL;
+using OnlineMobileShop.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -9,25 +11,25 @@ using System.Web.UI.WebControls;
 
 namespace OnlineMobileShop.BL
 {
-    public static class UserBL
+    public class UserBL
     {
-        public static void RefreshData(GridView Gv_OnlineMobileShop)
+        ProductRepository productRepository = new ProductRepository();
+       
+        public bool GetProduct(Product product)
         {
-            UserRespository.RefreshData(Gv_OnlineMobileShop);
+            return productRepository.GetProduct(product);
         }
-        public static void Gv_OnlineMobileShop_RowDeleting(GridViewDeleteEventArgs e, int userId)
+        public DataTable ToBind()
         {
-            UserRespository.Gv_OnlineMobileShop_RowDeleting(e, userId);
-
+            return productRepository.ToBind();
         }
-        public static void Gv_OnlineMobileShop_RowUpdating(GridView Gv_OnlineMobileShop,GridViewUpdateEventArgs e)
+        public bool UpdateProduct(Product product,int MobileID)
         {
-            UserRespository.Gv_OnlineMobileShop_RowUpdating(Gv_OnlineMobileShop,e);
+            return productRepository.UpdateDetails(product,MobileID);
         }
-        public static void InsertData(GridView Gv_OnlineMobileShop)
+        public bool DeleteProduct(Product product)
         {
-            UserRespository.InsertData(Gv_OnlineMobileShop);
+            return productRepository.Delete(product);
         }
-
     }
 }

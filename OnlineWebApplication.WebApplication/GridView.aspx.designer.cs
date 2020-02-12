@@ -7,18 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OnlineWebApplication.WebApplication {
-    
-    
-    public partial class GridView {
-        
+namespace OnlineWebApplication.WebApplication
+{
+
+
+    public partial class GridView
+    {
+
         /// <summary>
-        /// Gv_OnlineMobileShop control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView Gv_OnlineMobileShop;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }

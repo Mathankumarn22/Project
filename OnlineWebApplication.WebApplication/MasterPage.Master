@@ -15,6 +15,7 @@
             <ul>
                 <li><a href="SignUp.aspx">SignUp</a></li>
                 <li><a href="LogIn.aspx">LogIn</a></li>
+                <li><a href="GridView.aspx">ProductsView</a></li>
 
             </ul>
         <asp:ContentPlaceHolder ID="Content_Body" runat="server">
