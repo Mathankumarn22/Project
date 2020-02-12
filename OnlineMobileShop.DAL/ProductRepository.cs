@@ -1,6 +1,5 @@
 ﻿using System;
 using OnlineMobileShop.Entity;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
