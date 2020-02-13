@@ -14,7 +14,6 @@ namespace OnlineMobileShop.BL
     public class UserBL
     {
         ProductRepository productRepository = new ProductRepository();
-       
         public bool GetProduct(Product product)
         {
             return productRepository.GetProduct(product);
